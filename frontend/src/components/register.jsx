@@ -17,9 +17,12 @@ const navigation = useNavigate();
 useEffect(()=>{
     const user = localStorage.getItem('user')
   if(user){
-   return navigation('/')
+    navigation('/login')
+  } else {
+    navigation('/register')
   }
-  },[])
+
+  },[navigation])
 const handleInputChange = (e)=>{
     setForm({...form,[e.target.name]:e.target.value})
 }
@@ -30,24 +33,27 @@ const result = await register(form)
 if(result.status===200){
     if(result.data.status===200){
         localStorage.setItem('user',JSON.stringify(result.data.data))
-      navigation('/')
+        alert("Registration Successfully")
+      navigation('/login')
         return;
       }
     
       if(result.data.status===201){
-        setErrors(result.data.data)
-        toast(result.data.message)
+       // setErrors(result.data.data)
+        alert('Invalid credentials');
         return;
       }
     
       if(result.data.status===202){
-        toast(result.data.message)
+        alert('Invalid credentials');
         return;
       }
 }else{
     toast('something went wrong')
 }
 }
+
+
 
     return <>
     <Header/>
@@ -64,7 +70,7 @@ if(result.status===200){
       className="form-control" placeholder="Enter email"/>
      {
         errors?.email &&
-        <small id="emailHelp" class="form-text text-danger">{errors.email.msg}</small>
+        <small id="emailHelp" className="form-text text-danger">{errors.email.msg}</small>
       }
     </div>
 
@@ -78,7 +84,7 @@ if(result.status===200){
       className="form-control" placeholder="Enter username"/>
       {
         errors?.username &&
-        <small id="emailHelp" class="form-text text-danger">{errors.username.msg}</small>
+        <small id="emailHelp" className="form-text text-danger">{errors.username.msg}</small>
       }
     </div>
     
@@ -89,7 +95,7 @@ if(result.status===200){
       name="password" className="form-control" placeholder="Password"/>
      {
         errors?.password &&
-        <small id="emailHelp" class="form-text text-danger">password should be at least 8</small>
+        <small id="emailHelp" className="form-text text-danger">password should be at least 8</small>
       }
     </div>
 

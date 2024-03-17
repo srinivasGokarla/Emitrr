@@ -28,4 +28,3 @@ app.use('/users',apiRoute);
 app.listen(PORT,()=>{
     console.log(`server is listening on ${PORT}`)
 })
-

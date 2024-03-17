@@ -1,4 +1,3 @@
-
 import User from "../models/User.js";
 
 
@@ -14,10 +13,10 @@ import User from "../models/User.js";
       await user.save();
       res.json(user);
     } catch (error) {
-      return res.status(400).json({ message: "Error in Updating points", error });
-    }
-  
-    
+      return res.status(400).json({ message: "Error in Updating points", error });
+    }
+
+
 };
 
 
@@ -30,8 +29,7 @@ export const leaderBoard = async (req, res) => {
         return res.status(200).json({ message: "User Best Score", users });
       } catch (error) {
         console.error("Error in Getting Best Score:", error);
-        return res.status(500).json({ message: "Error in Getting Best Score", error: error.message });
-      }
+        return res.status(500).json({ message: "Error in Getting Best Score", error: error.message });
+      }
 }
-
 

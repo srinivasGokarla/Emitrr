@@ -10,7 +10,7 @@ const initialState = {
 
 export const fetchLeaderboard = createAsyncThunk('user/fetchLeaderboard', async () => {
   try {
-    const response = await axios.get('http://localhost:5000/users/leaderboard');
+    const response = await axios.get('https://emitr-backend.onrender.com/users/leaderboard');
     return response.data.users;
   } catch (error) {
     throw error.response.data.message;
@@ -21,7 +21,7 @@ export const fetchLeaderboard = createAsyncThunk('user/fetchLeaderboard', async 
 
 export const updateScore = createAsyncThunk('user/updateScore', async (userId,pointsToAdd) => {
   try {
-    const response = await axios.patch(`http://localhost:5000/users/updatescore/${userId}`,{ score: pointsToAdd });
+    const response = await axios.patch(`https://emitr-backend.onrender.com/users/updatescore/${userId}`,{ score: pointsToAdd });
     console.log(response.data,"Score updated")
     return response.data;
   } catch (error) {

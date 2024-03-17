@@ -22,22 +22,14 @@ export const Home=()=>{
 
 const navigation = useNavigate()
 
-    useEffect(()=>{
-   if(!getToken()){
+useEffect(()=>{
+    const user = localStorage.getItem('user')
+  if(user){
+    navigation('/')
+  } else {
     navigation('/login')
-   }
-   
-    },[])
-    useEffect(() => {
-        const tempDeck = initializeDeck();
-        setDeck(tempDeck);
-    }, []);
-
-    useEffect(() => {
-        dispatch(fetchLeaderboard());
-      }, [dispatch]);
-
-
+  }
+  },[])
 
     const saveLeaderboard = () => {
         localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
@@ -139,30 +131,12 @@ const navigation = useNavigate()
 
     return <>
     <Header />
-    <LeaderBoard/>
-    <ToastContainer />
+    {/* <LeaderBoard/>
+    <ToastContainer /> */}
     <div className='home'>
 
     <h1>Home Page!</h1>
-    <div className="leaderboard">
-                <h2>Leaderboard</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>User</th>
-                            <th>Games Won</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {leaderboard.map((entry, index) => (
-                            <tr key={index}>
-                                <td>{entry.user}</td>
-                                <td>{entry.gamesWon}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
+
     
     {gameWon ? (
                 <div>
@@ -198,7 +172,3 @@ const navigation = useNavigate()
 </>
 
 }
-
-
-
-

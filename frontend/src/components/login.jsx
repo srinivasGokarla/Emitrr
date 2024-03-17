@@ -15,7 +15,9 @@ const [form,setForm] = useState({
 useEffect(()=>{
   const user = localStorage.getItem('user')
 if(user){
- return navigation('/')
+  navigation('/')
+} else {
+  navigation('/login')
 }
 },[])
 
@@ -35,17 +37,20 @@ const handleSubmit = async ()=>{
 if(result.status == 200){
   if(result.data.status===200){
     localStorage.setItem('user',JSON.stringify(result.data.data))
+    alert("Login Successfully")
     navigation('/')
     return;
   }
 
   if(result.data.status===201){
-    setErrors(result.data.data)
+   // setErrors(result.data.data)
+    alert('Invalid credentials');
     return;
   }
 
   if(result.data.status===202){
-    toast(result.data.message)
+    console.error('Error:',"wrong Details");
+      alert('Invalid credentials');
     return;
   }
 }
@@ -66,7 +71,7 @@ if(result.status == 200){
       
       {
         errors?.username &&
-        <small id="emailHelp" class="form-text text-danger">{errors.username.msg}</small>
+        <small id="emailHelp" className="form-text text-danger">{errors.username.msg}</small>
       }
     </div>
     <div className="form-group">
@@ -77,7 +82,7 @@ if(result.status == 200){
      
      {
         errors?.password &&
-        <small id="emailHelp" class="form-text text-danger">{errors.password.msg}</small>
+        <small id="emailHelp" className="form-text text-danger">{errors.password.msg}</small>
       }
 
     </div>

@@ -18,20 +18,28 @@ const customStyles = {
 };
 
 export const Header = () => {
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const [user, setUser] = useState(() => {
+    const storedUser = localStorage.getItem('user');
+    return storedUser ? JSON.parse(storedUser) : null;
+  });
+  
   const navigation = useNavigate();
-  const [user, setUser] = useState(null)
+ 
 
   useEffect(() => {
     const u = localStorage.getItem('user');
-    setUser(u);
-  }, [])
+    setUser(u ? JSON.parse(u) : null); // Parse user data if available, else set to null
+  }, []);
 
   const handleLogout = () => {
+    localStorage.removeItem('user');
+    setUser(null);
     localStorage.clear()
     navigation('/login')
   }
 
-  const [modalIsOpen, setIsOpen] = useState(false);
+ 
 
   function openModal() {
     setIsOpen(true);
@@ -40,6 +48,13 @@ export const Header = () => {
   function closeModal() {
     setIsOpen(false);
   }
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+     // setUser(JSON.parse(storedUser));
+    }
+  }, []);
 
   return (
     <>
